@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Grade Manager</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/kTcW2XjzB2S+b6O3oJg+MXYF2TbPmbZ9A5zZBlHTB+61xjFhGea3ZypgFP3pTTsKT1rSCQgwT+X0w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f5fd;
+      padding: 20px;
+      margin: 0;
+    }
+    .container {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    h1 {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    input[type="text"], input[type="number"] {
+      padding: 10px;
+      margin: 5px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button {
+      padding: 10px 16px;
+      background-color: #5a67d8;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin: 5px;
+    }
+    button:hover {
+      background-color: #434190;
+    }
+    table {
+      width: 100%;
+      margin-top: 20px;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 12px;
+      text-align: center;
+      border: 1px solid #ddd;
+    }
+    .actions button {
+      margin: 0 4px;
+    }
+    .summary {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 20px;
+    }
+    .summary div {
+      font-weight: bold;
+    }
+    .bottom-buttons {
+      display: flex;
+      justify-content: center;
+      margin-top: 40px;
+      gap: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎓 Student Grade Manager</h1>
+    <div>
+      <input type="text" id="studentName" placeholder="Name" />
+      <input type="number" id="studentGrade" placeholder="Grade (0-100)" />
+      <button onclick="addStudent()">Add</button>
+    </div>
+    <div>
+      <input type="text" id="searchBox" placeholder="Search..." onkeyup="searchStudent()" />
+      <button onclick="sortByGrade()">Sort by Grade</button>
+      <button onclick="downloadCSV()">Download CSV</button>
+    </div>
+
+    <h2>📄 Students List</h2>
+    <table id="studentsTable">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Grade</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="studentsList"></tbody>
+    </table>
+
+    <h2>📊 Summary</h2>
+    <div class="summary">
+      <div>Average <br><span id="averageGrade">-</span></div>
+      <div>Highest <br><span id="highestGrade">-</span></div>
+      <div>Lowest <br><span id="lowestGrade">-</span></div>
+    </div>
+
+    <div class="bottom-buttons">
+      <button onclick="resetApp()">Reset</button>
+      <button onclick="alert('More features coming soon!')">More Features</button>
+    </div>
+  </div>
+
+  <script>
+    let students = [];
+
+    function addStudent() {
+      const name = document.getElementById('studentName').value.trim();
+      const grade = parseInt(document.getElementById('studentGrade').value);
+      if (name && !isNaN(grade) && grade >= 0 && grade <= 100) {
+        students.push({ name, grade });
+        document.getElementById('studentName').value = '';
+        document.getElementById('studentGrade').value = '';
+        renderStudents();
+      }
+    }
+
+    function renderStudents() {
+      const list = document.getElementById('studentsList');
+      list.innerHTML = '';
+      students.forEach((s, index) => {
+        list.innerHTML += `
+          <tr>
+            <td>${index + 1}</td>
+            <td>${s.name}</td>
+            <td>${s.grade}</td>
+            <td class="actions">
+              <button onclick="editStudent(${index})"><i class="fas fa-pen"></i></button>
+              <button onclick="deleteStudent(${index})"><i class="fas fa-times"></i></button>
+            </td>
+          </tr>
+        `;
+      });
+      updateSummary();
+    }
+
+    function editStudent(index) {
+      const student = students[index];
+      document.getElementById('studentName').value = student.name;
+      document.getElementById('studentGrade').value = student.grade;
+      students.splice(index, 1);
+      renderStudents();
+    }
+
+    function deleteStudent(index) {
+      students.splice(index, 1);
+      renderStudents();
+    }
+
+    function sortByGrade() {
+      students.sort((a, b) => b.grade - a.grade);
+      renderStudents();
+    }
+
+    function searchStudent() {
+      const query = document.getElementById('searchBox').value.toLowerCase();
+      const filtered = students.filter(s => s.name.toLowerCase().includes(query));
+      const list = document.getElementById('studentsList');
+      list.innerHTML = '';
+      filtered.forEach((s, index) => {
+        list.innerHTML += `
+          <tr>
+            <td>${index + 1}</td>
+            <td>${s.name}</td>
+            <td>${s.grade}</td>
+            <td class="actions">
+              <button onclick="editStudent(${index})"><i class="fas fa-pen"></i></button>
+              <button onclick="deleteStudent(${index})"><i class="fas fa-times"></i></button>
+            </td>
+          </tr>
+        `;
+      });
+    }
+
+    function updateSummary() {
+      if (students.length === 0) {
+        document.getElementById('averageGrade').innerText = '-';
+        document.getElementById('highestGrade').innerText = '-';
+        document.getElementById('lowestGrade').innerText = '-';
+        return;
+      }
+      const grades = students.map(s => s.grade);
+      const avg = (grades.reduce((a, b) => a + b, 0) / grades.length).toFixed(2);
+      const max = Math.max(...grades);
+      const min = Math.min(...grades);
+      document.getElementById('averageGrade').innerText = avg;
+      document.getElementById('highestGrade').innerText = max;
+      document.getElementById('lowestGrade').innerText = min;
+    }
+
+    function downloadCSV() {
+      let csv = "Name,Grade\n";
+      students.forEach(s => {
+        csv += `${s.name},${s.grade}\n`;
+      });
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'students.csv';
+      link.click();
+    }
+
+    function resetApp() {
+      students = [];
+      renderStudents();
+    }
+  </script>
+</body>
+</html>
