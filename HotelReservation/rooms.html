@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Our Rooms - Paradise Hotel</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f9f9f9;
+    }
+
+    header {
+      background: #4a90e2;
+      color: white;
+      text-align: center;
+      padding: 2rem 1rem;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
+
+    p.subtext {
+      font-size: 1.2rem;
+      margin-top: 0.5rem;
+    }
+
+    .room-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+      padding: 3rem;
+    }
+
+    .room-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      overflow: hidden;
+      width: 300px;
+      transition: transform 0.3s;
+    }
+
+    .room-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .room-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .room-info {
+      padding: 1.5rem;
+    }
+
+    .room-info h2 {
+      margin: 0 0 0.5rem;
+    }
+
+    .room-info p {
+      margin: 0.5rem 0;
+    }
+
+    .price {
+      color: #4a90e2;
+      font-weight: bold;
+    }
+
+    .book-btn {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.6rem 1.2rem;
+      background: #4a90e2;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background 0.3s;
+    }
+
+    .book-btn:hover {
+      background: #357ABD;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+    }
+
+    footer a {
+      color: #4a90e2;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Our Rooms</h1>
+    <p class="subtext">Choose from standard, deluxe, and suite options</p>
+  </header>
+
+  <div class="room-container">
+    <div class="room-card">
+      <img src="https://via.placeholder.com/300x180?text=Standard+Room" alt="Standard Room">
+      <div class="room-info">
+        <h2>Standard Room</h2>
+        <p>Perfect for solo travelers and couples. Cozy and comfortable.</p>
+        <p class="price">$100/night</p>
+        <a href="book.html" class="book-btn">Book Now</a>
+      </div>
+    </div>
+
+    <div class="room-card">
+      <img src="https://via.placeholder.com/300x180?text=Deluxe+Room" alt="Deluxe Room">
+      <div class="room-info">
+        <h2>Deluxe Room</h2>
+        <p>Spacious room with premium amenities and city view.</p>
+        <p class="price">$150/night</p>
+        <a href="book.html" class="book-btn">Book Now</a>
+      </div>
+    </div>
+
+    <div class="room-card">
+      <img src="https://via.placeholder.com/300x180?text=Suite" alt="Suite">
+      <div class="room-info">
+        <h2>Luxury Suite</h2>
+        <p>Top-tier experience with private lounge, balcony, and more.</p>
+        <p class="price">$250/night</p>
+        <a href="book.html" class="book-btn">Book Now</a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <a href="index.html">← Back to Home</a>
+  </footer>
+
+</body>
+</html>

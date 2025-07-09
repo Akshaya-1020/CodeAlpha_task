@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Bookings - Paradise Hotel</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f1f5f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: white;
+      padding: 2.5rem 3rem;
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 420px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #1e293b;
+      margin-bottom: 1rem;
+    }
+
+    p.description {
+      text-align: center;
+      font-size: 1rem;
+      color: #475569;
+      margin-bottom: 2rem;
+    }
+
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: 500;
+      color: #334155;
+    }
+
+    input[type="email"],
+    input[type="text"] {
+      width: 100%;
+      padding: 0.6rem;
+      margin-top: 0.4rem;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    .btn-group {
+      margin-top: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 0.6rem;
+      background: #4f46e5;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .btn.cancel {
+      background: #ef4444;
+    }
+
+    .btn:hover {
+      opacity: 0.9;
+    }
+
+    .link {
+      display: block;
+      text-align: center;
+      margin-top: 1.5rem;
+      color: #3b82f6;
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+
+    .link:hover {
+      text-decoration: underline;
+    }
+
+    .back-home {
+      margin-top: 1.8rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>My Bookings</h1>
+    <p class="description">Login to view or cancel your bookings</p>
+
+    <form action="#" method="post">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" placeholder="you@example.com" required>
+
+      <label for="booking-id">Booking ID</label>
+      <input type="text" id="booking-id" name="booking-id" placeholder="e.g. #BK123456" required>
+
+      <div class="btn-group">
+        <button class="btn" type="submit">View Booking</button>
+        <button class="btn cancel" type="button" onclick="alert('Booking canceled (simulated).')">Cancel Booking</button>
+      </div>
+    </form>
+
+    <a href="#" class="link">Forgot your Booking ID?</a>
+
+    <div class="back-home">
+      <a href="index.html" class="link">← Back to Home</a>
+    </div>
+  </div>
+
+</body>
+</html>
